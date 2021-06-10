@@ -1,0 +1,59 @@
+@baseurl= {{$dotenv OKAPI_URL}}
+@tenant={{$dotenv OKAPI_TENANT}}
+@username={{$dotenv FOLIO_USER}}
+@password={{$dotenv FOLIO_PASSWORD}}
+@permLoanId={{$dotenv PERMANENTLOANTYPEID}}
+@token={{login.response.headers.x-okapi-token}}
+
+###
+
+# Template
+GET {{baseurl}}/
+Content-Type: application/json
+Accept: application/json
+x-okapi-tenant: {{tenant}}
+x-okapi-token: {{token}}
+
+
+###
+
+# Login
+// @name login
+POST {{baseurl}}/authn/login
+Content-Type: application/json
+Accept: application/json
+x-okapi-tenant: {{tenant}}
+
+{
+  "username":"{{username}}",
+  "password":"{{password}}"
+}
+
+###
+
+# Get requests
+GET {{baseurl}}/circulation/requests?query=(requestType=="Recall" and status="Open - Not yet filled")&limit=500
+Content-Type: application/json
+Accept: application/json
+x-okapi-tenant: {{tenant}}
+x-okapi-token: {{token}}
+
+###
+
+# GET Available
+GET {{baseurl}}/inventory/items?query=(instance.id=="9431a2d5-b23c-4df5-9a16-c88685bfa115" AND status.name=="Available" AND permanentLoanTypeId=="{{permLoanId}}")&limit=100
+Content-Type: application/json
+Accept: application/json
+x-okapi-tenant: {{tenant}}
+x-okapi-token: {{token}}
+
+###
+
+# GET Available
+GET {{baseurl}}/inventory/items?query=(instance.id=="0b20989d-8534-49e0-88b0-b4f96462ff94" AND status.name=="Available")&limit=100
+Content-Type: application/json
+Accept: application/json
+x-okapi-tenant: {{tenant}}
+x-okapi-token: {{token}}
+
+###
