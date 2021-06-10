@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const fetch = require ('node-fetch')
 const {performance} = require('perf_hooks');
 const nodemailer = require('nodemailer');
