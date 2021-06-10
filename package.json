@@ -1,14 +1,21 @@
 {
-  "name": "folio-recalls",
+  "name": "folio-recall-move",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Move recalls to available items",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "node app.js"
+  },
+  "bin": {
+    "folio-recall-move": "app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ChalmersLibrary/folio-recall-move.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Lari Kovanen",
+  "license": "MIT",
   "dependencies": {
     "dotenv": "^10.0.0",
     "node-fetch": "^2.6.1",
