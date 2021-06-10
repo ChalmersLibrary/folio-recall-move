@@ -24,6 +24,11 @@ let num_records = 0
 let moved = []
 let skipped = 0
 
+if(!username || !password || !okapi || !tenant || !permLoanId || !skipBarcode || !liveMove || !mailTo || !recallUrl) {
+  console.log('Needed environtment varialbes missing.')
+  process.exit()
+}
+
 async function login() {
   let response = await fetch(`${okapi}/authn/login`, {
     method: 'POST',
