@@ -16,7 +16,8 @@ const skipBarcode = process.env.SKIPBARCODE
 const liveMove = process.env.LIVEMOVE
 const mailTo = process.env.MAILTO
 const recallUrl = process.env.RECALLURL
-const smtpUser = process.env.SMTP_USER,
+const smtpHost = process.env.SMTP_HOST
+const smtpUser = process.env.SMTP_USER
 const smtpPassword = process.env.SMTP_PASSWORD
 
 let token = ""
@@ -146,7 +147,7 @@ async function main() {
   }
 
   let transporter = nodemailer.createTransport({
-    host: "imail.ita.chalmers.se",
+    host: smtpHost,
     port: 587,
     secure: false,
     auth: {
