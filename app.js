@@ -16,6 +16,9 @@ const skipBarcode = process.env.SKIPBARCODE
 const liveMove = process.env.LIVEMOVE
 const mailTo = process.env.MAILTO
 const recallUrl = process.env.RECALLURL
+const smtpUser = process.env.SMTP_USER,
+const smtpPassword = process.env.SMTP_PASSWORD
+
 let token = ""
 
 let recalls_to_move = []
@@ -25,7 +28,7 @@ let num_records = 0
 let moved = []
 let skipped = 0
 
-if(!username || !password || !okapi || !tenant || !permLoanId || !skipBarcode || !liveMove || !mailTo || !recallUrl) {
+if(!username || !password || !okapi || !tenant || !permLoanId || !skipBarcode || !liveMove || !mailTo || !recallUrl || !smtpUser || !smtpPassword) {
   console.log('Needed environtment varialbes missing.')
   process.exit()
 }
@@ -147,8 +150,8 @@ async function main() {
     port: 587,
     secure: false,
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASSWORD
+      user: smtpUser,
+      pass: smtpPassword
     }
   })
 
