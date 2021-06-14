@@ -5,7 +5,7 @@ Utility that fetches active recalls that have status 'Open - Not yet filled' and
 You need to have [node and npm](https://nodejs.org/) installed on the machine.
 
 ## Installation
-Run `npm install -g @larkov/folio-recall-move` on the machine.
+Run `npm install -g folio-recall-move` on the machine.
 
 ## Setup
 Create a bash script as below with your values.
