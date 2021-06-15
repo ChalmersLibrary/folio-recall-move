@@ -23,6 +23,7 @@ export RECALLURL=https://folio-honeysuckle.dev.folio.org/requests/view/
 export SMTP_HOST=your.smtp.host
 export SMTP_USER=smtplogin
 export SMTP_PASSWORD=smtppassword
+export LOCALE=sv-SE
 folio-recall-move
 ```
 Set up a cronjob that peridically runs it in your prefered interval.

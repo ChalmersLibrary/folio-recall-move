@@ -19,6 +19,7 @@ const recallUrl = process.env.RECALLURL
 const smtpHost = process.env.SMTP_HOST
 const smtpUser = process.env.SMTP_USER
 const smtpPassword = process.env.SMTP_PASSWORD
+const locale = process.env.LOCALE
 
 let token = ""
 
@@ -105,25 +106,21 @@ async function main() {
       return new Date(a.requestDate) - new Date(b.requestDate)
     })
     console.log(`To process ${requests.length} Moving: ${liveMove}`);
-    // console.log(JSON.stringify(requests));
     for(var i in requests) {
       num_records +=1
       let request_date = requests[i].requestDate
       let linked_instance = requests[i].item.instanceId
-      // console.log(linked_instance);
       let title = requests[i].item.title
       let requester = requests[i].requester.barcode
+      let requestDate = requests[i].requestDate
       let pickupLocation = requests[i].pickupServicePoint.name.split(" ")[0]
       if(requester == skipBarcode) {
         skipped += 1
         continue
       }
       let items = await get_available(linked_instance)
-      // console.log(items);
-      // console.log(`Processing ${num_records+1} of ${requests.length} `);
-
+      
       if(items.length > 0) {
-        // console.log(items);
         let recall_id = requests[i].id
         let recall_url = `${recallUrl}${recall_id}`
 
@@ -132,7 +129,7 @@ async function main() {
         has_available_items += 1
         let itemIndex = items.findIndex(item => item.effectiveLocation.name.toLowerCase().includes(pickupLocation.toLowerCase()))
         let idx = itemIndex > 0 ? itemIndex : 0
-        let moving = {title: title, url:recall_url, id: recall_id, barcode: items[idx].barcode}
+        let moving = {title: title, url:recall_url, id: recall_id, barcode: items[idx].barcode, requestDate: new Date(requestDate).toLocaleString(locale) }
         moved.push(moving)
 
         if(liveMove == "TRUE") {
@@ -161,9 +158,9 @@ async function main() {
   let htmlMailMessage = ""
   let logMessage = ""
   moved.forEach(recall => {
-    mailMessage += `${recall.title} Move recall id ${recall.id} to barcode ${recall.barcode}\n`
-    htmlMailMessage +=`<strong>${recall.title}</strong> Move recall id <a href="${recall.url}">${recall.id}</a> to barcode ${recall.barcode}<br>`
-    logMessage +=`${recall.title}: ${recall.url} barcode:${recall.barcode}\n`
+    mailMessage += `${recall.title} Move recall id ${recall.id} to barcode ${recall.barcode}, requested: ${recall.requestDate}\n`
+    htmlMailMessage +=`<strong>${recall.title}</strong> Move recall id <a href="${recall.url}">${recall.id}</a> to barcode ${recall.barcode}, requested: ${recall.requestDate}<br>`
+    logMessage +=`${recall.title}: ${recall.url} barcode:${recall.barcode} requested: ${recall.requestDate}\n`
   });
 
   console.log(processed);
