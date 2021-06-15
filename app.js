@@ -120,7 +120,6 @@ async function main() {
       let items = await get_available(linked_instance)
       
       if(items.length > 0) {
-        console.log(linked_instance);
         let recall_id = requests[i].id
         let recall_url = `${recallUrl}${recall_id}`
 
