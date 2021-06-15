@@ -128,7 +128,7 @@ async function main() {
         has_available_items += 1
         let itemIndex = items.findIndex(item => item.effectiveLocation.name.toLowerCase().includes(pickupLocation.toLowerCase()))
         let idx = itemIndex > 0 ? itemIndex : 0
-        let rDate = `${requestDate.getDate()}/${requestDate.getMonth()} ${requestDate.getFullYear()} ${requestDate.getHours()}:${requestDate.getMinutes()}`
+        let rDate = `${requestDate.getDate()}/${requestDate.getMonth()+1} ${requestDate.getFullYear()} ${requestDate.getHours()}:${requestDate.getMinutes()}`
         let moving = {title: title, url:recall_url, id: recall_id, barcode: items[idx].barcode, requestDate: rDate }
         moved.push(moving)
 
@@ -164,16 +164,16 @@ async function main() {
   });
 
   console.log(processed);
-  if(moved.length>0){
-    let info = await transporter.sendMail({
-      from: '"Library No Reply" <noreply.lib@chalmers.se>',
-      to: mailTo,
-      subject: "Requests moved to available items",
-      text: mailMessage,
-      html: htmlMailMessage
-    })
-    console.log(`Message sent: ${info.messageId}`)
-  }
+  // if(moved.length>0){
+  //   let info = await transporter.sendMail({
+  //     from: '"Library No Reply" <noreply.lib@chalmers.se>',
+  //     to: mailTo,
+  //     subject: "Requests moved to available items",
+  //     text: mailMessage,
+  //     html: htmlMailMessage
+  //   })
+  //   console.log(`Message sent: ${info.messageId}`)
+  // }
 
   moved.length > 0 ? console.log(`Moved:\n${logMessage}`):console.log('Nothing moved.');
 }
