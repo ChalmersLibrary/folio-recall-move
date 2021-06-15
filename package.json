@@ -1,6 +1,6 @@
 {
   "name": "folio-recall-move",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "description": "Move recalls to available items",
   "main": "app.js",
   "scripts": {

@@ -31,7 +31,7 @@ let skipped = 0
 
 if(!username || !password || !okapi || !tenant || !permLoanId || !skipBarcode || !liveMove || !mailTo || !recallUrl || !smtpUser || !smtpPassword) {
   console.log('Needed environtment varialbes missing.')
-  process.exit()
+  process.exit(1)
 }
 
 async function login() {
@@ -120,6 +120,7 @@ async function main() {
       let items = await get_available(linked_instance)
       
       if(items.length > 0) {
+        console.log(linked_instance);
         let recall_id = requests[i].id
         let recall_url = `${recallUrl}${recall_id}`
 
@@ -178,4 +179,7 @@ async function main() {
   moved.length > 0 ? console.log(`Moved:\n${logMessage}`):console.log('Nothing moved.');
 }
 
-main().catch(err => console.log(err))
+main().catch(err => {
+  console.log(err)
+  process.exitCode = 1
+})
