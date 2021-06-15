@@ -41,7 +41,7 @@ x-okapi-token: {{token}}
 ###
 
 # GET Available
-GET {{baseurl}}/inventory/items?query=(instance.id=="9431a2d5-b23c-4df5-9a16-c88685bfa115" AND status.name=="Available" AND permanentLoanTypeId=="{{permLoanId}}")&limit=100
+GET {{baseurl}}/inventory/items?query=(instance.id=="d8043acd-b35f-49f3-89f8-fd7051277eac" AND status.name=="Available" AND permanentLoanTypeId=="{{permLoanId}}")&limit=100
 Content-Type: application/json
 Accept: application/json
 x-okapi-tenant: {{tenant}}
@@ -55,5 +55,19 @@ Content-Type: application/json
 Accept: application/json
 x-okapi-tenant: {{tenant}}
 x-okapi-token: {{token}}
+
+###
+
+# Move request to new item
+POST {{baseurl}}/circulation/requests/56198e73-d617-4183-8bcf-3526a2dfbcec/move
+Content-Type: application/json
+Accept: application/json
+x-okapi-tenant: {{tenant}}
+x-okapi-token: {{token}}
+
+{
+  "destinationItemId":"dcda70ec-227e-4994-a3b3-80b6a00fc608",
+  "requestType": "Page"
+}
 
 ###
