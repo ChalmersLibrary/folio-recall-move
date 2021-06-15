@@ -19,7 +19,6 @@ const recallUrl = process.env.RECALLURL
 const smtpHost = process.env.SMTP_HOST
 const smtpUser = process.env.SMTP_USER
 const smtpPassword = process.env.SMTP_PASSWORD
-const locale = process.env.LOCALE
 
 let token = ""
 
@@ -112,7 +111,7 @@ async function main() {
       let linked_instance = requests[i].item.instanceId
       let title = requests[i].item.title
       let requester = requests[i].requester.barcode
-      let requestDate = requests[i].requestDate
+      let requestDate = new Date(requests[i].requestDate)
       let pickupLocation = requests[i].pickupServicePoint.name.split(" ")[0]
       if(requester == skipBarcode) {
         skipped += 1
@@ -129,7 +128,8 @@ async function main() {
         has_available_items += 1
         let itemIndex = items.findIndex(item => item.effectiveLocation.name.toLowerCase().includes(pickupLocation.toLowerCase()))
         let idx = itemIndex > 0 ? itemIndex : 0
-        let moving = {title: title, url:recall_url, id: recall_id, barcode: items[idx].barcode, requestDate: new Date(requestDate).toLocaleString(locale) }
+        let rDate = `${requestDate.getDate()}/${requestDate.getMonth()} ${requestDate.getFullYear()} ${requestDate.getHours()}:${requestDate.getMinutes()}`
+        let moving = {title: title, url:recall_url, id: recall_id, barcode: items[idx].barcode, requestDate: rDate }
         moved.push(moving)
 
         if(liveMove == "TRUE") {
