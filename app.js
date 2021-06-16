@@ -158,9 +158,15 @@ async function main() {
   let htmlMailMessage = ""
   let logMessage = ""
   moved.forEach(recall => {
-    mailMessage += `${recall.title} Move recall id ${recall.id} to barcode ${recall.barcode}, requested: ${recall.requestDate}\n`
-    htmlMailMessage +=`<strong>${recall.title}</strong> Move recall id <a href="${recall.url}">${recall.id}</a> to barcode ${recall.barcode}, requested: ${recall.requestDate}<br>`
-    logMessage +=`${recall.title}: ${recall.url} barcode:${recall.barcode} requested: ${recall.requestDate}\n`
+    if (liveMove == 'TRUE') {
+      mailMessage += `${recall.title} with Recall id ${recall.id} is moved to barcode ${recall.barcode}, requested ${recall.requestDate}\n`
+      htmlMailMessage +=`<strong>${recall.title}</strong> with Recall id <a href="${recall.url}">${recall.id}</a> is moved to barcode ${recall.barcode}, requested ${recall.requestDate}<br>`
+      logMessage +=`${recall.title} with Recall id ${recall.url} is moved to barcode:${recall.barcode}, requested ${recall.requestDate}\n`
+    } else {
+      mailMessage += `${recall.title} with Recall id ${recall.id} can be moved to barcode ${recall.barcode}, requested ${recall.requestDate}\n`
+      htmlMailMessage +=`<strong>${recall.title}</strong> with Recall id <a href="${recall.url}">${recall.id}</a> can be moved to barcode ${recall.barcode}, requested ${recall.requestDate}<br>`
+      logMessage +=`${recall.title} with Recall id ${recall.id} can be moved to barcode:${recall.barcode}, requested ${recall.requestDate}\n`
+    }
   });
 
   console.log(processed);
