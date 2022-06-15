@@ -108,8 +108,8 @@ async function main() {
     for(var i in requests) {
       num_records +=1
       let request_date = requests[i].requestDate
-      let linked_instance = requests[i].item.instanceId
-      let title = requests[i].item.title
+      let linked_instance = requests[i].instanceId
+      let title = requests[i].instance.title
       let requester = requests[i].requester.barcode
       let requestDate = new Date(requests[i].requestDate)
       let pickupLocation = requests[i].pickupServicePoint.name.split(" ")[0]
