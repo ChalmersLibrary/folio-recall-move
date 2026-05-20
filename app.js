@@ -2,7 +2,6 @@
 const fetch = require ('node-fetch')
 const {performance} = require('perf_hooks');
 const nodemailer = require('nodemailer');
-const MailMessage = require('nodemailer/lib/mailer/mail-message');
 require('dotenv').config()
 
 const start = performance.now()
